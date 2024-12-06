@@ -1,19 +1,22 @@
-using _Elementa.Enemies.Scripts;
+using _Elementa.ObjectPool;
 using UnityEngine;
+using Zenject;
 
 public class SphereApproachingCamera : MonoBehaviour
 {
     
-    [SerializeField] private EnemyPool enemyPool;
     [SerializeField] private float detectionDistance = 5f; // Расстояние от края камеры для детекции
     
     
     private Renderer sphereRenderer;
     private bool hasSpawned = false;
 
+    [Inject(Id = nameof(PoolIds.Enemies))] private ObjectPool<Enemy> enemyPool;
+    private Camera _camera;
+
     void Start()
     {
-        // Получаем компонент Renderer объекта
+        _camera = Camera.main;
         sphereRenderer = GetComponent<Renderer>();
 
         if (sphereRenderer == null)
@@ -24,9 +27,8 @@ public class SphereApproachingCamera : MonoBehaviour
 
     void Update()
     {
-        if (!hasSpawned&&sphereRenderer != null && IsNearCamera(Camera.main, detectionDistance))
+        if (!hasSpawned&&sphereRenderer != null && IsNearCamera(_camera, detectionDistance))
         {
-            //Debug.Log($"{gameObject.name} приближается к зоне камеры!");
             SpawnEnemy();
             hasSpawned = true;
         }
@@ -34,8 +36,8 @@ public class SphereApproachingCamera : MonoBehaviour
     
     private void SpawnEnemy()
     { 
-        GameObject enemy = enemyPool.GetEnemy();
-        enemy.GetComponent<Enemy>().Activate(transform.position);
+        Enemy enemy = enemyPool.Get();
+        enemy.SetPosition(transform.position);
     }
 
     private bool IsNearCamera(Camera camera, float distance)
