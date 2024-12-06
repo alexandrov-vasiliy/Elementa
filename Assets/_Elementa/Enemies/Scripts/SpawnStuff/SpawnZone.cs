@@ -6,7 +6,8 @@ public class SphereApproachingCamera : MonoBehaviour
 {
     
     [SerializeField] private float detectionDistance = 5f; // Расстояние от края камеры для детекции
-    
+
+    [SerializeField] private float _enemyCount = 1;
     
     private Renderer sphereRenderer;
     private bool hasSpawned = false;
@@ -29,6 +30,7 @@ public class SphereApproachingCamera : MonoBehaviour
     {
         if (!hasSpawned&&sphereRenderer != null && IsNearCamera(_camera, detectionDistance))
         {
+            
             SpawnEnemy();
             hasSpawned = true;
         }

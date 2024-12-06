@@ -4,5 +4,7 @@ namespace _Elementa.ObjectPool
     {
         public static string Enemies = nameof(Enemies);
 
+        public static string Projectile = nameof(Projectile);
+
     }
 }
