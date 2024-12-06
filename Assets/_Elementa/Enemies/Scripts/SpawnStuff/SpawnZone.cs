@@ -35,9 +35,17 @@ public class SphereApproachingCamera : MonoBehaviour
     }
     
     private void SpawnEnemy()
-    { 
-        Enemy enemy = enemyPool.Get();
-        enemy.SetPosition(transform.position);
+    {
+        if (enemyPool != null)
+        {
+            Enemy enemy = enemyPool.Get();
+            enemy.SetPosition(transform.position);
+        }
+        else
+        {
+            Debug.Log(enemyPool);
+        }
+
     }
 
     private bool IsNearCamera(Camera camera, float distance)

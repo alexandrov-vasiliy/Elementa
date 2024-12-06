@@ -2,11 +2,12 @@ namespace FSM.Scripts
 {
     public abstract class FsmState
     {
-        protected readonly Fsm Fsm;
+        protected readonly Fsm _fsm;
+
 
         public FsmState(Fsm fsm)
         {
-            Fsm = fsm;
+            _fsm = fsm;
         }
 
         public virtual void Enter()
