@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381a60da272c4c0bbbeb2e05b3378624, type: 3}
+  m_Name: AirAttack
+  m_EditorClassIdentifier: 
+  AttackName: Air
+  Damage: 5
+  muzzlePrefab: {fileID: 5357767409460153518, guid: abb578eb9ed66e3498ca7796251288fb, type: 3}
+  hitPrefab: {fileID: 2961485694660685364, guid: c68fd2abc984ae14497614537e1901b3, type: 3}
+  bodyPrefab: {fileID: 871758662454225522, guid: 1056ef8b7376d13438d1cd3d3e9e732b, type: 3}
+  speed: 30
+  searchRadius: 20

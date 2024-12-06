@@ -2,7 +2,7 @@ namespace FSM.Scripts
 {
     public class FsmStateAttack : FsmStateEnemy
     {
-        public FsmStateAttack(Fsm _fsm, Enemy _enemy) : base(_fsm, _enemy)
+        public FsmStateAttack(Fsm fsm, Enemy enemy) : base(fsm, enemy)
         {
         }
 

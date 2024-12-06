@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent _agent;
     private PlayerBase _player;
+    private Transform _target;
 
     [Inject]
     public void Construct(PlayerBase playerBase)
