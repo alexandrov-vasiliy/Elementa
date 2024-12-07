@@ -8,6 +8,8 @@ public class CharacterMovement : MonoBehaviour
 {
     [Header("Character movement stats")]
     [SerializeField] private float _moveSpeed;
+
+    [SerializeField, Range(1, 2)] private float _multiplier;
     [SerializeField] private float _rotateSpeed;
 
     [Header("Gravity handling")]
@@ -33,7 +35,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void MoveCharacter(Vector3 moveDirection)
     {
-        moveDirection = moveDirection * _moveSpeed;
+        moveDirection = moveDirection * (_moveSpeed * _multiplier);
         moveDirection.y = _currentAttractionCharacter;
         _characterController.Move(moveDirection * Time.deltaTime);
     }

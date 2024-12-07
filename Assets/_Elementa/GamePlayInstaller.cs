@@ -9,7 +9,7 @@ public class GamePlayInstaller : MonoInstaller
 {
     [SerializeField] private PlayerBase _player;
     [SerializeField] private ElementBar _elementBar;
-
+    [SerializeField] private PassiveSkills _passiveSkills;
     [SerializeField] private SteamCloud _steamCloud;
     [SerializeField] private Rock _rock;
     [SerializeField] private AttackConfig _attackConfig;
@@ -18,6 +18,7 @@ public class GamePlayInstaller : MonoInstaller
     {
         Container.Bind<PlayerBase>().FromInstance(_player).AsSingle();
         Container.Bind<ElementBar>().FromInstance(_elementBar).AsSingle();
+        Container.Bind<PassiveSkills>().FromInstance(_passiveSkills).AsSingle();
         
         Container.Bind<SteamCloud>().FromInstance(_steamCloud).AsSingle();
         Container.Bind<Rock>().FromInstance(_rock).AsSingle();
