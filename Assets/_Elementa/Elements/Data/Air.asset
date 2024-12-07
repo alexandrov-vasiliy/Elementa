@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300d125d96124aa9b6c3f0f36ae2b03f, type: 3}
   m_Name: Air
   m_EditorClassIdentifier: 
-  ElementName: Air
+  ElementName: 0
   Color: {r: 1, g: 1, b: 1, a: 1}
   Icon: {fileID: 0}
-  CombineWith: {fileID: 0}
-  Result: {fileID: 0}
+  AttackData: {fileID: 11400000, guid: 2ee61b055ac10b54286b1fc156024a48, type: 2}
+  combinationRules: []

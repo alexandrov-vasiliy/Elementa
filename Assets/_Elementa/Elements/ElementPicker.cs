@@ -10,7 +10,7 @@ namespace _Elementa.Elements
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.TryGetComponent(out PlayerBase player))
             {
                 _elementBar.AddElement(_element); 
                 Destroy(gameObject);

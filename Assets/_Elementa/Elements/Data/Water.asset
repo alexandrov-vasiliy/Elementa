@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300d125d96124aa9b6c3f0f36ae2b03f, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  ElementName: Water
+  ElementName: 2
   Color: {r: 0.090196066, g: 0.21453995, b: 0.77254903, a: 1}
   Icon: {fileID: 0}
+  AttackData: {fileID: 11400000, guid: d5e76121e5aedd44ea8a0f60c1af3180, type: 2}
   combinationRules:
   - otherElement: {fileID: 11400000, guid: 29835c6e21064204386149f07c581e78, type: 2}
     result: {fileID: 11400000, guid: f5d0e663088f9544abe6cb9f63d107eb, type: 2}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    private float health = 100f;
+    [SerializeField] private float health = 100f;
 
     public event System.Action OnDeath;
     

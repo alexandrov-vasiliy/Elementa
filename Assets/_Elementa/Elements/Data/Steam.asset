@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300d125d96124aa9b6c3f0f36ae2b03f, type: 3}
   m_Name: Steam
   m_EditorClassIdentifier: 
-  ElementName: Steam
+  ElementName: 5
   Color: {r: 0.516984, g: 0.554717, b: 0.5013386, a: 1}
   Icon: {fileID: 0}
-  CombineWith: {fileID: 0}
-  Result: {fileID: 0}
+  AttackData: {fileID: 11400000, guid: 9a9ffa69d9f3e2145831164b3c81cdfa, type: 2}
+  combinationRules: []

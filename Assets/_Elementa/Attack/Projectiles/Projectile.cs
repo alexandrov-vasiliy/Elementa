@@ -1,6 +1,10 @@
-﻿using _Elementa.Attack.Data;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using _Elementa.Attack.Data;
 using _Elementa.ObjectPool;
 using UnityEngine;
+using Zenject;
 
 namespace _Elementa.Attack.Projectiles
 {
@@ -8,24 +12,29 @@ namespace _Elementa.Attack.Projectiles
     public class Projectile : MonoBehaviour
     {
         private ProjectileAttackData _attackData;
-        private Transform _target;
+        [SerializeField] private Transform _target;
         private Vector3 _direction;
-        private bool _hasTarget;
+        [SerializeField] private bool _hasTarget;
+        [SerializeField] private LayerMask _enemyLayer;
+        [SerializeField] private float _rotationSpeed = 10f;
+        [SerializeField] private float _destroyTimeout = 20f;
         
         private ProjectileEffects _effects;
+        [Inject] private AttackConfig _attackConfig;
+        [Inject] private FindEnemy _findEnemy;
 
-        public void Initialize(ProjectileAttackData data, Transform owner, ObjectPool<Projectile> pool )
+        public void Initialize(ProjectileAttackData data, Transform owner, ObjectPool<Projectile> pool)
         {
             var position = owner.position;
             transform.position = position;
 
-            
+
             _effects = GetComponent<ProjectileEffects>();
             _effects.Initialize(data.muzzlePrefab, data.hitPrefab, data.bodyPrefab, this, pool);
-            
+
             _attackData = data;
 
-            _target = FindNearestEnemy(position);
+            _target = _findEnemy.Nearest(position, _attackConfig.EnemyFindRadius);
             if (_target != null)
             {
                 _hasTarget = true;
@@ -37,6 +46,17 @@ namespace _Elementa.Attack.Projectiles
             }
 
             gameObject.SetActive(true);
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine(LifeSpan());
+        }
+
+        private IEnumerator LifeSpan()
+        {
+            yield return new WaitForSeconds(_destroyTimeout);
+            _effects.ReturnToPool();
         }
 
         private void Update()
@@ -51,54 +71,41 @@ namespace _Elementa.Attack.Projectiles
             }
         }
 
-        
 
         private void MoveTowardsTarget()
         {
-            transform.position = Vector3.MoveTowards(transform.position, _target.position, _attackData.speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, _target.position) < 0.1f)
-            {
-                HitTarget();
-            }
+            Vector3 directionToTarget = (_target.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+
+            transform.position =
+                Vector3.MoveTowards(transform.position, _target.position, _attackData.speed * Time.deltaTime);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log($"on Hit Target {collision.gameObject.name}");
+            HitTarget(collision);
         }
 
         private void MoveForward()
         {
+            if (_direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_direction);
+                transform.rotation =
+                    Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            }
+
+
             transform.position += _direction * (_attackData.speed * Time.deltaTime);
-
-            // Уничтожаем снаряд, если он пролетел далеко
-            if (Vector3.Distance(transform.position, _direction) > 20f)
-            {
-                _effects.ReturnToPool();
-            }
         }
 
-        private void HitTarget()
+        private void HitTarget(Collision collision)
         {
-            _attackData.ApplyEffect(_target.gameObject);
+            if (_attackData == null) return;
+
+            _attackData.ApplyEffect(collision.gameObject);
         }
-
-        private Transform FindNearestEnemy(Vector3 position)
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(position, _attackData.searchRadius);
-            float closestDistance = float.MaxValue;
-            Transform nearestEnemy = null;
-
-            foreach (var collider in hitColliders)
-            {
-                if (collider.TryGetComponent(out Enemy enemy))
-                {
-                    float distance = Vector3.Distance(position, enemy.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        nearestEnemy = enemy.transform;
-                    }
-                }
-            }
-
-            return nearestEnemy;
-        }
-        
     }
 }

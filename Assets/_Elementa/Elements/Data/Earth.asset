@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300d125d96124aa9b6c3f0f36ae2b03f, type: 3}
   m_Name: Earth
   m_EditorClassIdentifier: 
-  ElementName: Earth
+  ElementName: 3
   Color: {r: 0.509434, g: 0.32393414, b: 0.068244934, a: 1}
   Icon: {fileID: 0}
+  AttackData: {fileID: 11400000, guid: 80233f01ea49afd48880c7a3c6ddd5ae, type: 2}
   combinationRules:
   - otherElement: {fileID: 11400000, guid: d3538b02916a48c4d8d3ec15895619a6, type: 2}
     result: {fileID: 11400000, guid: d9c9dca65ab8afc4da52446c9b96d8ec, type: 2}

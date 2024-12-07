@@ -10,38 +10,49 @@ namespace _Elementa.Elements
 
     public class ElementBar : MonoBehaviour
     {
-        [SerializeField] private Image barImage; // Полоска (например, Image компонент в UI)
-        [SerializeField] private List<ElementData> elements = new List<ElementData>(); // Текущие элементы в полоске
-        [SerializeField] private float maxFill = 1f; // Максимальное заполнение полоски
+        [SerializeField] private List<ElementData> elements = new(); 
         [SerializeField] private ElementData _airElement;
+        [SerializeField] private GameObject _barItemPrefab;
+        [SerializeField] private int _maxElementCount = 10;
+
+        private List<GameObject> _barItems = new();
         public void AddElement(ElementData newElement)
         {
+            if(elements.Count >= _maxElementCount) return;
+
             if (elements.Count > 0)
             {
-                // Проверяем последнюю добавленную стихию
-                ElementData lastElement = elements[elements.Count - 1];
+                ElementData lastElement = elements[^1];
 
-                // Если есть комбинация, заменяем последнюю стихию на результат
-                var result = newElement.GetCombinationResult(newElement);
-                if (result)
+                var combinedElement = newElement.GetCombinationResult(lastElement);
+                if (combinedElement)
                 {
-                    
-                    elements[^1] = result;
+                    elements.Remove(lastElement);
+                    elements.Add(combinedElement);
                     UpdateBar();
                     return;
                 }
             }
 
-            // Если комбинации нет, добавляем элемент
             elements.Add(newElement);
             UpdateBar();
         }
 
-        private void Start()
+        public ElementData GetLastElement()
         {
-            StartCoroutine(AirFilling());
+            if (elements.Count == 0) return _airElement;
+            
+            return elements[^1];
         }
 
+        public void RemoveLastElement()
+        {
+            if (elements.Count > 0)
+            {
+                elements.RemoveAt(elements.Count - 1);
+                UpdateBar();
+            }
+        }
 
         private IEnumerator AirFilling()
         {
@@ -57,24 +68,24 @@ namespace _Elementa.Elements
 
         private void UpdateBar()
         {
-            // Обновляем цвет полоски на основе элементов
-            if (elements.Count == 0)
+            
+            ClearBar();
+            foreach (var elementData in elements)
             {
-                barImage.color = Color.clear; // Полоска пустая
-                return;
+                var barItem = Instantiate(_barItemPrefab, transform);
+                var image = barItem.GetComponent<Image>();
+                image.color = elementData.Color;
+                _barItems.Add(barItem);
             }
+            
+        }
 
-            // Создаем градиент на основе добавленных элементов
-            Texture2D texture = new Texture2D(elements.Count, 1);
-            for (int i = 0; i < elements.Count; i++)
+        private void ClearBar()
+        {
+            foreach (var barItem in _barItems)
             {
-                texture.SetPixel(i, 0, elements[i].Color);
+                Destroy(barItem);
             }
-            texture.Apply();
-
-            // Обновляем цветовой градиент полоски
-            barImage.material = new Material(Shader.Find("UI/Default"));
-            barImage.material.mainTexture = texture;
         }
     }
 }

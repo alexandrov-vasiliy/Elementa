@@ -44,7 +44,7 @@ namespace _Elementa.ObjectPool
             }
 
             var obj = _pool.Dequeue();
-            obj.gameObject.SetActive(true);
+            obj.gameObject.SetActive(true); 
             return obj;
         }
 

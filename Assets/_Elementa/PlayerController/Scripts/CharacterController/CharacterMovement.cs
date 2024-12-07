@@ -1,6 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using _Elementa;
+using _Elementa.Attack;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
@@ -15,7 +16,9 @@ public class CharacterMovement : MonoBehaviour
 
     [Header("Character components")]
     private CharacterController _characterController;
-
+    
+    [Inject] private AttackConfig _attackConfig;
+    [Inject] private FindEnemy _findEnemy;
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -24,6 +27,8 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
          GravityHandling();
+         FaceNearestEnemy();
+
     }
 
     public void MoveCharacter(Vector3 moveDirection)
@@ -54,6 +59,18 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             _currentAttractionCharacter = 0;
+        }
+    }
+    
+    private void FaceNearestEnemy()
+    {
+        var nearestEnemy = _findEnemy.Nearest(transform.position, _attackConfig.EnemyFindRadius);
+        
+        if (nearestEnemy != null)
+        {
+            Vector3 directionToEnemy = (nearestEnemy.position - transform.position).normalized;
+            directionToEnemy.y = 0;
+            RotateCharacter(directionToEnemy);
         }
     }
 }
