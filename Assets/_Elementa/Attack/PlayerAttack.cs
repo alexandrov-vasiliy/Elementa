@@ -1,4 +1,5 @@
-﻿using _Elementa.Attack.Data;
+﻿using System;
+using _Elementa.Attack.Data;
 using _Elementa.Attack.Projectiles;
 using _Elementa.Elements;
 using _Elementa.ObjectPool;
@@ -16,7 +17,23 @@ namespace _Elementa.Attack
         
          private float _lastAttackTime;
          private int _attackCount = 0;
-        private void Update()
+
+         private void OnEnable()
+         {
+             _elementBar.OnElementAdd += ClearAttackRate;
+         }
+
+         private void OnDisable()
+         {
+             _elementBar.OnElementAdd -= ClearAttackRate;
+         }
+
+         private void ClearAttackRate()
+         {
+             _lastAttackTime = 0f;
+         }
+
+         private void Update()
         {
             if (Input.GetKey(KeyCode.Space))
             {

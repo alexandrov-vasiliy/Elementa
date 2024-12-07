@@ -15,11 +15,13 @@ namespace _Elementa.Elements
         [SerializeField] private GameObject _barItemPrefab;
         [SerializeField] private int _maxElementCount = 10;
 
+        public event Action OnElementAdd;
         private List<GameObject> _barItems = new();
         public void AddElement(ElementData newElement)
         {
             if(elements.Count >= _maxElementCount) return;
 
+            OnElementAdd?.Invoke();
             if (elements.Count > 0)
             {
                 ElementData lastElement = elements[^1];
