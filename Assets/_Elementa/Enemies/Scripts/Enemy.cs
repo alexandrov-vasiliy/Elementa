@@ -13,9 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Health _health;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _attackRate = 1f;
-    [SerializeField] private float _attackDamage = 20f;
-    [SerializeField] private float _attackRadius = 1f;
-    [SerializeField] private Transform _attackPoint;
+
      public float DetectRadius { get; private set; } = 20f;
     
     [Inject(Id = nameof(PoolIds.Enemies))] private LazyInject<ObjectPool<Enemy>> _pool;
@@ -79,40 +77,13 @@ public class Enemy : MonoBehaviour
         {
             _animator.SetTrigger(Attack);
 
-            DealDamage();
             yield return new WaitForSeconds(_attackRate); 
         }
     }
 
-    private IEnumerator DealDamgeWithDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        DealDamage();
-    }
-
-    private void DealDamage()
-    {
-        Collider[] hitObjects = Physics.OverlapSphere(_attackPoint.position, _attackRadius);
-
-        foreach (var hit in hitObjects)
-        {
-            if (hit.gameObject != gameObject && hit.GetComponent<Enemy>() == null)
-            {
-                IDamageable damageable = hit.GetComponent<IDamageable>();
-                if (damageable != null)
-                {
-                    damageable.Damage(_attackDamage);
-                }
-            }
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
-        Gizmos.color = Color.red;
-       
-    }
+   
+  
+   
 
     private void OnDrawGizmosSelected()
     {

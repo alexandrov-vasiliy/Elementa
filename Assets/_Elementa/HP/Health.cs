@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float health = 100f;
+    [SerializeField] public float Value { private set; get; } = 100f;
 
     public event System.Action OnDeath;
     
@@ -17,12 +17,12 @@ public class Health : MonoBehaviour, IDamageable
         }
         else
         {
-            health -= damage;
+            Value -= damage;
             OnTakeDamage?.Invoke();
             OnHealthChange?.Invoke();
         }
 
-        if (health <= 0f)
+        if (Value <= 0f)
         {
             Die();
         }
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Heal(float heal)
     {
-        health += heal;
+        Value += heal;
         OnHealthChange?.Invoke();
     }
 

@@ -16,6 +16,4 @@ MonoBehaviour:
   Color: {r: 0.509434, g: 0.32393414, b: 0.068244934, a: 1}
   Icon: {fileID: 0}
   AttackData: {fileID: 11400000, guid: 80233f01ea49afd48880c7a3c6ddd5ae, type: 2}
-  combinationRules:
-  - otherElement: {fileID: 11400000, guid: d3538b02916a48c4d8d3ec15895619a6, type: 2}
-    result: {fileID: 11400000, guid: d9c9dca65ab8afc4da52446c9b96d8ec, type: 2}
+  combinationRules: []

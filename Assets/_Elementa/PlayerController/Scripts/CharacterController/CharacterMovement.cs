@@ -1,4 +1,5 @@
-﻿using _Elementa;
+﻿using System;
+using _Elementa;
 using _Elementa.Attack;
 using UnityEngine;
 using Zenject;
@@ -28,7 +29,11 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
          GravityHandling();
-         FaceNearestEnemy();
+    }
+
+    private void LateUpdate()
+    {
+        FaceNearestEnemy();
     }
 
     public void MoveCharacter(Vector3 moveDirection)

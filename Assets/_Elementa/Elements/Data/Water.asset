@@ -19,5 +19,3 @@ MonoBehaviour:
   combinationRules:
   - otherElement: {fileID: 11400000, guid: 29835c6e21064204386149f07c581e78, type: 2}
     result: {fileID: 11400000, guid: f5d0e663088f9544abe6cb9f63d107eb, type: 2}
-  - otherElement: {fileID: 11400000, guid: 7f38d6d8baff2bc40ac1e972c05480d7, type: 2}
-    result: {fileID: 11400000, guid: d9c9dca65ab8afc4da52446c9b96d8ec, type: 2}

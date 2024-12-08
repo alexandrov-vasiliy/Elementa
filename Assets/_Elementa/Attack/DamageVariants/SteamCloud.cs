@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Elementa.Player;
 using UnityEngine;
 
 namespace _Elementa.Attack.DamageVariants
@@ -28,7 +29,7 @@ namespace _Elementa.Attack.DamageVariants
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
+            if (other.TryGetComponent<IDamageable>(out IDamageable damageable) && other.GetComponent<PlayerBase>() == null)
             {
                 if (!_activeDamageCoroutines.ContainsKey(damageable))
                 {
