@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EarthAttack
   m_EditorClassIdentifier: 
   AttackName: Earth
-  Damage: 40
+  Damage: 100
   FireRate: 1
   LifeTime: 10
   AttackCount: 1
