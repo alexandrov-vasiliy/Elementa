@@ -1,31 +1,34 @@
-using _Elementa;
 using _Elementa.Attack;
 using _Elementa.Attack.DamageVariants;
 using _Elementa.Elements;
+using _Elementa.Player;
 using UnityEngine;
 using Zenject;
 
-public class GamePlayInstaller : MonoInstaller
+namespace _Elementa
 {
-    [SerializeField] private PlayerBase _player;
-    [SerializeField] private ElementBar _elementBar;
-
-    [SerializeField] private SteamCloud _steamCloud;
-    [SerializeField] private Rock _rock;
-    [SerializeField] private AttackConfig _attackConfig;
-
-    public override void InstallBindings()
+    public class GamePlayInstaller : MonoInstaller
     {
-        Container.Bind<PlayerBase>().FromInstance(_player).AsSingle();
-        Container.Bind<ElementBar>().FromInstance(_elementBar).AsSingle();
-        
-        Container.Bind<SteamCloud>().FromInstance(_steamCloud).AsSingle();
-        Container.Bind<Rock>().FromInstance(_rock).AsSingle();
-        
-        Container.Bind<AttackConfig>().FromInstance(_attackConfig).AsSingle();
+        [SerializeField] private PlayerBase _player;
+        [SerializeField] private ElementBar _elementBar;
 
-        Container.Bind<IAttackFactory>().To<AttackFactory>().AsSingle();
+        [SerializeField] private SteamCloud _steamCloud;
+        [SerializeField] private Rock _rock;
+        [SerializeField] private AttackConfig _attackConfig;
 
-        Container.Bind<FindEnemy>().AsSingle().WithArguments(_attackConfig.EnemyMask);
+        public override void InstallBindings()
+        {
+            Container.Bind<PlayerBase>().FromInstance(_player).AsSingle();
+            Container.Bind<ElementBar>().FromInstance(_elementBar).AsSingle();
+        
+            Container.Bind<SteamCloud>().FromInstance(_steamCloud).AsSingle();
+            Container.Bind<Rock>().FromInstance(_rock).AsSingle();
+        
+            Container.Bind<AttackConfig>().FromInstance(_attackConfig).AsSingle();
+
+            Container.Bind<IAttackFactory>().To<AttackFactory>().AsSingle();
+
+            Container.Bind<FindEnemy>().AsSingle().WithArguments(_attackConfig.EnemyMask);
+        }
     }
 }

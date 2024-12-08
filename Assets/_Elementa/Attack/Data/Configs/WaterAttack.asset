@@ -17,8 +17,12 @@ MonoBehaviour:
   FireRate: 0.5
   LifeTime: 30
   AttackCount: 10
+  SpawnAudio: {fileID: 8300000, guid: de5521e7a56208d45ab45f29cf43647f, type: 3}
+  ProcessAudio: {fileID: 0}
+  DestroyAudio: {fileID: 8300000, guid: 299b7d4cfa8d8424692abb3b867d55ed, type: 3}
   muzzlePrefab: {fileID: 6325964566665753739, guid: a0beb01e1b5983b4787d8ba0c638f43f, type: 3}
   hitPrefab: {fileID: 6855030031181868929, guid: fd2a4fb54295cd943a32c17b755f0de4, type: 3}
   bodyPrefab: {fileID: 2918987708534057540, guid: faf94bff902b27e47a62507ba58aa3ce, type: 3}
   speed: 30
   searchRadius: 20
+  Force: -100

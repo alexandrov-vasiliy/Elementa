@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Elementa.Player;
+using UnityEngine;
 
 namespace _Elementa.Elements
 {

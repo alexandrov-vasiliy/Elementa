@@ -7,6 +7,7 @@ public class Health : MonoBehaviour, IDamageable
     public event System.Action OnDeath;
     
     public event System.Action OnHealthChange;
+    public event System.Action OnTakeDamage;
 
     public void Damage(float damage)
     {
@@ -17,6 +18,7 @@ public class Health : MonoBehaviour, IDamageable
         else
         {
             health -= damage;
+            OnTakeDamage?.Invoke();
             OnHealthChange?.Invoke();
         }
 

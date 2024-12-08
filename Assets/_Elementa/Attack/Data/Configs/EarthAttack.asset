@@ -17,3 +17,6 @@ MonoBehaviour:
   FireRate: 1
   LifeTime: 10
   AttackCount: 1
+  SpawnAudio: {fileID: 8300000, guid: 26610e43d4edb9446b61bf156ab4edd0, type: 3}
+  ProcessAudio: {fileID: 0}
+  DestroyAudio: {fileID: 8300000, guid: 4ebcaec61da59574095c57f8a5aeb696, type: 3}

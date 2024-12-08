@@ -1,28 +1,24 @@
-namespace FSM.Scripts
+﻿namespace FSM.Scripts
 {
     public class FsmStateAttack : FsmStateEnemy
     {
         public FsmStateAttack(Fsm fsm, Enemy enemy) : base(fsm, enemy)
         {
         }
-
-
+        
         public override void Enter()
         {
-            Enemy.Attack();
+            Enemy.StartAttack();
         }
 
 
         public override void Update()
         {
-
-            if (Enemy.HasReachedDestination())
+            Enemy.Agr();
+            if (!Enemy.HasReachedDestination())
             {
-                _fsm.SetState<FsmStateIdle>();
-            }
-            else
-            {
-                Enemy.Attack();
+                Enemy.StopAttack();
+                _fsm.SetState<FsmStateHunting>();
             }
         }
     }

@@ -1,10 +1,11 @@
+using _Elementa.Player;
 using UnityEngine;
 
 namespace FSM.Scripts
 {
     public class FsmStateIdle : FsmStateEnemy
     {
-        public FsmStateIdle(Fsm _fsm, Enemy _enemy) : base(_fsm, _enemy)
+        public FsmStateIdle(Fsm fsm, Enemy enemy) : base(fsm, enemy)
         {
         }
 
@@ -12,7 +13,15 @@ namespace FSM.Scripts
         {
             if (Enemy.isActiveAndEnabled)
             {
-                _fsm.SetState<FsmStateAttack>();
+                Collider[] cols = Physics.OverlapSphere(Enemy.transform.position, Enemy.DetectRadius);
+
+                foreach (var collider in cols)
+                {
+                    if (collider.TryGetComponent(out PlayerBase playerBase))
+                    {
+                        _fsm.SetState<FsmStateHunting>();
+                    }
+                }
             }
         }
     }

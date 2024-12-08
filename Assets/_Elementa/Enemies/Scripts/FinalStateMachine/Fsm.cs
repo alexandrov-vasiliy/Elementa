@@ -4,7 +4,7 @@ using FSM.Scripts;
 
 public class Fsm
 {
-    private FsmState StateCurrent { get; set; }
+    public FsmState StateCurrent { get; private set; }
     private Dictionary<Type, FsmState> _states = new Dictionary<Type, FsmState>();
 
     public void AddState(FsmState state)

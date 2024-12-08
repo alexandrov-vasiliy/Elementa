@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using _Elementa.Attack.Data;
 using _Elementa.Attack.Projectiles;
 using _Elementa.Elements;
@@ -10,13 +11,20 @@ namespace _Elementa.Attack
 {
     public class PlayerAttack : MonoBehaviour
     {
+        public event Action OnAttack;
+        [SerializeField] private float _attackDelay = 0.3f;
+        [SerializeField] private AttackAudioPlayer _attackAudioPlayer;
+
+        
         [Inject(Id = nameof(PoolIds.Projectile))]
         private ObjectPool<Projectile> _pool;
+        
         [Inject] private ElementBar _elementBar;
         [Inject] private IAttackFactory _attackFactory;
         
          private float _lastAttackTime;
          private int _attackCount = 0;
+         
 
          private void OnEnable()
          {
@@ -51,15 +59,24 @@ namespace _Elementa.Attack
 
             if (Time.time >= _lastAttackTime + attackData.FireRate)
             {
-                var attack = _attackFactory.CreateAttack(lastElement, _pool);
-                attack?.ExecuteAttack(transform);
-                _attackCount++;
-                if (_attackCount >= attackData.AttackCount)
-                {
-                    _elementBar.RemoveLastElement();
-                    _attackCount = 0;
-                }
+                _attackAudioPlayer.PlaySpawnAudio(attackData);
+                OnAttack?.Invoke(); 
+                StartCoroutine(ExecuteAttackWithDelay(lastElement, attackData));
                 _lastAttackTime = Time.time;
+            }
+        }
+        
+        private IEnumerator ExecuteAttackWithDelay(ElementData lastElement, AttackData attackData)
+        {
+            yield return new WaitForSeconds(_attackDelay);
+
+            var attack = _attackFactory.CreateAttack(lastElement, _pool);
+            attack?.ExecuteAttack(transform);
+            _attackCount++;
+            if (_attackCount >= attackData.AttackCount)
+            {
+                _elementBar.RemoveLastElement();
+                _attackCount = 0;
             }
         }
     }

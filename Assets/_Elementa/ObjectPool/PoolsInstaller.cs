@@ -1,4 +1,3 @@
-using _Elementa.Attack;
 using _Elementa.Attack.Projectiles;
 using UnityEngine;
 using Zenject;

@@ -23,16 +23,16 @@ namespace _Elementa.Attack.Projectiles
         [Inject] private AttackConfig _attackConfig;
         [Inject] private FindEnemy _findEnemy;
 
-        public void Initialize(ProjectileAttackData data, Transform owner, ObjectPool<Projectile> pool)
+        public void Initialize(ProjectileAttackData projectileAttackData, Transform owner, ObjectPool<Projectile> pool)
         {
             var position = owner.position;
             transform.position = position;
 
 
             _effects = GetComponent<ProjectileEffects>();
-            _effects.Initialize(data.muzzlePrefab, data.hitPrefab, data.bodyPrefab, this, pool);
+            _effects.Initialize(projectileAttackData, this, pool, owner);
 
-            _attackData = data;
+            _attackData = projectileAttackData;
 
             _target = _findEnemy.Nearest(position, _attackConfig.EnemyFindRadius);
             if (_target != null)
@@ -84,7 +84,6 @@ namespace _Elementa.Attack.Projectiles
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log($"on Hit Target {collision.gameObject.name}");
             HitTarget(collision);
         }
 

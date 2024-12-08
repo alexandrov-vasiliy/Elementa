@@ -24,11 +24,11 @@ public class CharacterMovement : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
     }
 
+    
     private void Update()
     {
          GravityHandling();
          FaceNearestEnemy();
-
     }
 
     public void MoveCharacter(Vector3 moveDirection)

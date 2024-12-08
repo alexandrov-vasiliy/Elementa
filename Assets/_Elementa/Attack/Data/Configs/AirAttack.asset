@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: AirAttack
   m_EditorClassIdentifier: 
   AttackName: Air
-  Damage: 5
-  FireRate: 1
+  Damage: 40
+  FireRate: 0.4
   LifeTime: 1
   AttackCount: 0
+  SpawnAudio: {fileID: 8300000, guid: 202597de4607b32428a48e04bce6e932, type: 3}
+  ProcessAudio: {fileID: 0}
+  DestroyAudio: {fileID: 0}
   muzzlePrefab: {fileID: 5357767409460153518, guid: abb578eb9ed66e3498ca7796251288fb, type: 3}
   hitPrefab: {fileID: 2961485694660685364, guid: c68fd2abc984ae14497614537e1901b3, type: 3}
   bodyPrefab: {fileID: 871758662454225522, guid: 1056ef8b7376d13438d1cd3d3e9e732b, type: 3}
