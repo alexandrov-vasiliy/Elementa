@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: SteamAttack
   m_EditorClassIdentifier: 
   AttackName: Steam
-  Damage: 5
-  FireRate: 9
+  Damage: 20
+  FireRate: 0
   LifeTime: 5
-  AttackCount: 3
+  AttackCount: 1
+  SpawnAudio: {fileID: 0}
+  ProcessAudio: {fileID: 0}
+  DestroyAudio: {fileID: 0}

@@ -49,7 +49,7 @@ namespace _Elementa.Attack
             }
         }
 
-        private void TryAttack()
+        public void TryAttack()
         {
             var lastElement = _elementBar.GetLastElement();
             if (lastElement == null) return;

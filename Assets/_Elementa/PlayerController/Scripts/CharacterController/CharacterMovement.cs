@@ -18,6 +18,8 @@ public class CharacterMovement : MonoBehaviour
     [Header("Character components")]
     private CharacterController _characterController;
     
+    public Transform Target {  get; private set; } 
+    
     [Inject] private AttackConfig _attackConfig;
     [Inject] private FindEnemy _findEnemy;
     private void Start()
@@ -28,6 +30,7 @@ public class CharacterMovement : MonoBehaviour
     
     private void Update()
     {
+       
          GravityHandling();
     }
 
@@ -38,7 +41,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void MoveCharacter(Vector3 moveDirection)
     {
-        moveDirection = moveDirection * _moveSpeed;
+        moveDirection *= _moveSpeed;
         moveDirection.y = _currentAttractionCharacter;
         _characterController.Move(moveDirection * Time.deltaTime);
     }
@@ -73,6 +76,8 @@ public class CharacterMovement : MonoBehaviour
         
         if (nearestEnemy != null)
         {
+            Target = nearestEnemy;
+            
             Vector3 directionToEnemy = (nearestEnemy.position - transform.position).normalized;
             directionToEnemy.y = 0;
             RotateCharacter(directionToEnemy);

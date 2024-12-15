@@ -4,9 +4,9 @@ namespace FSM.Scripts
     {
         protected readonly Enemy Enemy;
 
-        public FsmStateEnemy(Fsm _fsm, Enemy _enemy) : base(_fsm)
+        public FsmStateEnemy(Fsm fsm, Enemy enemy) : base(fsm)
         {
-            Enemy = _enemy;
+            Enemy = enemy;
         }
     }
 }

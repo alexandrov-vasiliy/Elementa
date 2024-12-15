@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WaterAttack
   m_EditorClassIdentifier: 
   AttackName: Water
-  Damage: 10
-  FireRate: 0.5
+  Damage: 30
+  FireRate: 0.4
   LifeTime: 30
   AttackCount: 10
   SpawnAudio: {fileID: 8300000, guid: de5521e7a56208d45ab45f29cf43647f, type: 3}

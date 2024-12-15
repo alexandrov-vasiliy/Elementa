@@ -32,9 +32,11 @@ namespace _Elementa.Attack
             _audioSource = GetComponent<AudioSource>();
             SpawnMuzzle();
             _body = Instantiate(attackData.bodyPrefab, transform);
-
+            if (_body.TryGetComponent(out ParticleSystem particleSystem))
+            {
+                particleSystem.Play();
+            }
             _pool = pool;
-            PlayProcces();
 
         }
 
@@ -73,8 +75,9 @@ namespace _Elementa.Attack
         private void PlayDestroy()
         {
             if (_attackData.DestroyAudio == null) return;
-            _audioSource.clip = _attackData.DestroyAudio;
-            _audioSource.Play();
+            if(_audioSource.isPlaying) return;
+            
+            _audioSource.PlayOneShot(_attackData.DestroyAudio);
         }
 
         private void SpawnMuzzle()

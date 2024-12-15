@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using FSM.Scripts;
+using UnityEngine;
 
 public class Fsm
 {
-    public FsmState StateCurrent { get; private set; }
+     public FsmState StateCurrent { get; private set; }
     private Dictionary<Type, FsmState> _states = new Dictionary<Type, FsmState>();
 
     public void AddState(FsmState state)

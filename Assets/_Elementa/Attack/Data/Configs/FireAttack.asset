@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: FireAttack
   m_EditorClassIdentifier: 
   AttackName: Fire
-  Damage: 15
-  FireRate: 0.4
+  Damage: 30
+  FireRate: 0.5
   LifeTime: 1
-  AttackCount: 5
+  AttackCount: 15
   SpawnAudio: {fileID: 8300000, guid: c2f2e093eb5f57249b3bd087d074485c, type: 3}
   ProcessAudio: {fileID: 8300000, guid: c7a589604aea0794e9655a7e529afeef, type: 3}
   DestroyAudio: {fileID: 8300000, guid: 6dc8070ac9d3558409a8eb9470c54887, type: 3}
-  muzzlePrefab: {fileID: 2831285941179162297, guid: 4399809ecbe1fda4888d52486935f39a, type: 3}
+  muzzlePrefab: {fileID: 0}
   hitPrefab: {fileID: 1949398963624892, guid: d786e2d05a34bf741b1bd7fd569828cd, type: 3}
   bodyPrefab: {fileID: 1600668000018744, guid: 467cd1946a21a48419880914116ce12b, type: 3}
   speed: 30

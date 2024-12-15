@@ -48,6 +48,17 @@ namespace _Elementa.ObjectPool
             return obj;
         }
 
+        public T OnlyGet()
+        {
+            if (_pool.Count == 0)
+            {
+                AddObjectToPool();
+            }
+
+            var obj = _pool.Dequeue();
+            return obj;
+        }
+        
         public void ReturnToPool(T obj)
         {
             obj.gameObject.SetActive(false);

@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4293786658316390403}
   - component: {fileID: 425462566350852473}
   - component: {fileID: 2578842934883495182}
+  - component: {fileID: 614673968401466924}
   m_Layer: 5
   m_Name: AttackCanvas
   m_TagString: Untagged
@@ -177,6 +178,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &614673968401466924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179836269356019304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3001c126dd64c0b84cbce4481ab19a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5818663667628655358
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,4 +310,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1305056923509376283}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: _Elementa.Attack.PlayerAttack, Assembly-CSharp
+        m_MethodName: TryAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
