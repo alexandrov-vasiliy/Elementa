@@ -15,13 +15,15 @@ namespace _Elementa.Attack.Projectiles
         [SerializeField] private Transform _target;
         private Vector3 _direction;
         [SerializeField] private bool _hasTarget;
-        [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private float _rotationSpeed = 10f;
         [SerializeField] private float _destroyTimeout = 20f;
         
         private ProjectileEffects _effects;
         [Inject] private AttackConfig _attackConfig;
         [Inject] private FindEnemy _findEnemy;
+        
+        private Collider[] hits = new Collider[10]; 
+
 
         public void Initialize(ProjectileAttackData projectileAttackData, Transform owner, ObjectPool<Projectile> pool)
         {
@@ -29,8 +31,6 @@ namespace _Elementa.Attack.Projectiles
             transform.position = position;
 
 
-            _effects = GetComponent<ProjectileEffects>();
-            _effects.Initialize(projectileAttackData, this, pool, owner);
 
             _attackData = projectileAttackData;
 
@@ -46,6 +46,9 @@ namespace _Elementa.Attack.Projectiles
             }
 
             gameObject.SetActive(true);
+            
+            _effects = GetComponent<ProjectileEffects>();
+            _effects.Initialize(projectileAttackData, this, pool, owner);
         }
 
         private void OnEnable()
@@ -103,8 +106,18 @@ namespace _Elementa.Attack.Projectiles
         private void HitTarget(Collision collision)
         {
             if (_attackData == null) return;
+            int hitCount = Physics.OverlapSphereNonAlloc(collision.transform.position, _attackData.Radius, hits, _attackConfig.EnemyMask);
+            foreach (var hit in hits)
+            {
+                _attackData.ApplyEffect(hit.gameObject);
+            }
+        }
 
-            _attackData.ApplyEffect(collision.gameObject);
+        private void OnDrawGizmos()
+        {
+            if(_attackData == null) return;
+            Gizmos.DrawWireSphere(transform.position, _attackData.Radius);
+            Gizmos.color = Color.yellow;
         }
     }
 }

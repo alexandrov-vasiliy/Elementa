@@ -19,7 +19,7 @@ namespace _Elementa
 
             foreach (var collider in hitColliders)
             {
-                if (collider.TryGetComponent(out Enemy enemy))
+                if (collider.TryGetComponent(out Enemy enemy) && enemy.IsDead == false)
                 {
                     float distance = Vector3.Distance(position, enemy.transform.position);
                     if (distance < closestDistance)

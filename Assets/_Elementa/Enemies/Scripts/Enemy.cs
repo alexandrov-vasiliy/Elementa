@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Elementa.Enemies.Scripts;
 using _Elementa.ObjectPool;
 using _Elementa.Player;
 using Unity.VisualScripting;
@@ -18,6 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]  float SecondsToDestroyAfterDead = 5f;
 
      public float DetectRadius { get; private set; } = 20f;
+     public bool IsDead { get; private set; } = false;
     
     [Inject(Id = nameof(PoolIds.Enemies))] private LazyInject<ObjectPool<Enemy>> _pool;
 
@@ -41,6 +43,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         
         _animator.SetBool(Dead, false);
+        IsDead = false;
 
     }
 
@@ -51,9 +54,13 @@ public class Enemy : MonoBehaviour
 
     private void HandleDeath()
     {
+        IsDead = true;
         _animator.SetBool(Dead, true);
         _agent.isStopped = true;
-        
+        if (gameObject.TryGetComponent(out SmoothFall smoothFall))
+        {
+            smoothFall.StartFalling();
+        }
         OnDead?.Invoke();
         StartCoroutine(ReturnToPoolDelayed());
     }

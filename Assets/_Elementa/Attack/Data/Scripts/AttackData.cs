@@ -6,6 +6,7 @@ namespace _Elementa.Attack.Data
     {
         public string AttackName;
         public float Damage;
+        public float Radius = 2f;
         public float FireRate = 1f;
         public float LifeTime = 1f;
         public int AttackCount = 3;

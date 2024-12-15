@@ -20,7 +20,7 @@ namespace _Elementa.Attack
         private Transform _owner;
 
         private AudioSource _audioSource;
-
+        private bool _isDestroyed;
         public void Initialize(ProjectileAttackData attackData,
             Projectile projectile, ObjectPool<Projectile> pool, Transform owner)
         {
@@ -28,7 +28,7 @@ namespace _Elementa.Attack
 
             _projectile = projectile;
             _owner = owner;
-
+            _isDestroyed = false;
             _audioSource = GetComponent<AudioSource>();
             SpawnMuzzle();
             _body = Instantiate(attackData.bodyPrefab, transform);
@@ -42,8 +42,11 @@ namespace _Elementa.Attack
 
         private void OnCollisionEnter(Collision collision)
         {
+            if(_isDestroyed) return;
+            
             if (_attackData.DestroyAudio == null)
             {
+                _isDestroyed = true;
                 SpawnHit(collision);
                 ReturnToPool();
 
@@ -57,7 +60,7 @@ namespace _Elementa.Attack
             PlayDestroy();
             SpawnHit(collision);
             Destroy(_body);
-
+            _isDestroyed = true;
             yield return new WaitForSeconds(_attackData.DestroyAudio.length);
 
             _pool.ReturnToPool(_projectile);
@@ -110,13 +113,11 @@ namespace _Elementa.Attack
 
         public void SpawnHit(Collision co)
         {
-            ContactPoint contact = co.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 pos = contact.point;
+           
 
             if (_attackData.hitPrefab != null)
             {
-                var hitVFX = Instantiate(_attackData.hitPrefab, pos, rot);
+                var hitVFX = Instantiate(_attackData.hitPrefab, co.transform.position,  Quaternion.identity);
                 var psHit = hitVFX.GetComponent<ParticleSystem>();
                 if (psHit != null)
                 {

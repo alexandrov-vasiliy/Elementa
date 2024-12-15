@@ -13,7 +13,6 @@ namespace _Elementa.Enemies.Scripts.SpawnStuff
         [SerializeField] private LayerMask _playerLayer;
         [SerializeField] private float _enemyCount = 1;
     
-        private Renderer _sphereRenderer;
         private bool _hasSpawned = false;
 
         [Inject(Id = nameof(PoolIds.Enemies))] private ObjectPool<Enemy> _enemyPool;
@@ -22,12 +21,7 @@ namespace _Elementa.Enemies.Scripts.SpawnStuff
         void Start()
         {
             _camera = Camera.main;
-            _sphereRenderer = GetComponent<Renderer>();
-
-            if (_sphereRenderer == null)
-            {
-                Debug.LogError("На объекте отсутствует Renderer!");
-            }
+           
         }
 
         void Update()
